@@ -22,21 +22,21 @@ export const getPedidosByname = async (req,res) => {
 }
 
 
-export const createEmpleado = async(req,res) => {
+export const createPedidos = async(req,res) => {
     const {name,description,pieces,prize,total,r_date,status,balance} = req.body
-    const [rows] = await database.query('INSERT INTO employee (username,password,name,age,phone_number,gender) VALUES (?,?,?,?,?,?)',[username,password,name,age,phone_number,gender])
-    res.send("El usuario a sido creado Exitosamente Tenga un buen dia");
+    const [rows] = await database.query('INSERT INTO orders (name,description,pieces,prize,total,r_date,status,balance) VALUES (?,?,?,?,?,?,?,?)',[name,description,pieces,prize,total,r_date,status,balance])
+    res.send("Su pedido a sido creado Exitosamente Tenga un buen dia");
 }
 
-export const UpdateEmpleado = async(req,res) => {
+export const UpdatePedido = async(req,res) => {
     const {id} = req.params
-    const {username,password,name,age,phone_number,gender,state} = req.body
-    const [result] = await database.query('UPDATE employee SET username=?,password=?,name=?,age=?,phone_number=?,gender=?,state=? WHERE id = ?;',
-    [username,password,name,age,phone_number,gender,state,id])
+    const {name,description,pieces,prize,total,r_date,status,balance} = req.body
+    const [result] = await database.query('UPDATE orders SET name=?,description=?,pieces=?,prize=?,total=?,r_date=?,status=?,balance=? WHERE id = ?;',
+    [name,description,pieces,prize,total,r_date,status,balance,id])
     if(result.affectedRows === 0){
         res.status(404),json({message:'No encontre a su empleado'})
     }
-    const [personal] = ('SELECT * FROM employee WHERE id=?;',[id])
-    res.send("Actualizacion del Emplead@ Correcta")
+    const [personal] = ('SELECT * FROM orders WHERE id=?;',[id])
+    res.send("Actualizacion del Pedido Correcta")
     res.json(personal)
 };
