@@ -1,8 +1,9 @@
 //Importaciones del proyecto//
-import express from 'express';
-import empleados from './routes/employee.routes.js'
-import clientes from './routes/customers.routes.js'
-import pedidos from './routes/orders.routes.js';
+const express = require('express');;
+const empleados = require('./routes/employee.routes.js');
+const clientes = require ('./routes/customers.routes.js');
+const pedidos = require ('./routes/orders.routes.js');
+const auth = require('./auth/auth.controller.js');
 
 const app = express(); // < -- usermos el servicio de app
 
@@ -15,9 +16,10 @@ app.set('port',process.env.PORT || 3000); //El puerto que estaremos usando en to
 app.set('json spaces',2) //Espacios para nuestro json *Es irrelente pero lo hace estetico*
 
 //Rutas para nuestro servicio
-app.use('/api',empleados);
-app.use('/api',clientes);
-app.use('/api',pedidos);
+app.use('/api',empleados.routerEmployee);
+app.use('/api',clientes.routerCustomers);
+app.use('/api',pedidos.routerOrders);
+app.use('/api',auth.authRouter);
 
 //Arranque de nuestro Server
 app.listen(app.get('port'), () =>{

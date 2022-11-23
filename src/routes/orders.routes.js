@@ -1,13 +1,15 @@
-import {Router} from "express";
-import {getPedidos,getPedidosByname,getPedidosById, UpdatePedido, createPedidos, DeletePedido} from '../controllers/orders.controller.js';
+const{Router} = require ("express");
+const {getPedidos,getPedidosByname,getPedidosById, UpdatePedido, createPedidos, DeletePedido} = require ('../controllers/orders.controller.js');
 
-const router = Router();
+const routerOrders = Router();
 
-router.get('/ordenes/',getPedidos);
-router.get('/ordenes/:id',getPedidosById);
-router.get('/ordenes/orden/:name',getPedidosByname);
-router.post('/ordenes/',createPedidos);
-router.put('/ordenes/:id',UpdatePedido);
-router.delete('/ordenes/:id',DeletePedido);
+routerOrders.get('/ordenes/',getPedidos);
+routerOrders.get('/ordenes/:id',getPedidosById);
+routerOrders.get('/ordenes/orden/:name',getPedidosByname);
+routerOrders.post('/ordenes/',createPedidos);
+routerOrders.put('/ordenes/:id',UpdatePedido);
 
-export default router;
+
+module.exports={
+    routerOrders
+}

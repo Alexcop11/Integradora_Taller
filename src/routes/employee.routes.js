@@ -1,15 +1,16 @@
 //Importaciones
-import {Router} from "express";
-import { getEmpleados,getEmpleadoById, createEmpleado, UpdateEmpleado, getEmpleadoByname} from "../controllers/employee.controller.js";
+const Router  = require ("express");
+const { getEmpleados,getEmpleadoById, createEmpleado, UpdateEmpleado, getEmpleadoByname} = require ("../controllers/employee.controller.js");
 
-const router = Router();
+const routerEmployee = Router();
 
 //Nuestras Rutas para los empleados 
-router.get('/empleados',getEmpleados);
-router.get('/empleados/:id',getEmpleadoById);
-router.get('/empleados/empleado/:name',getEmpleadoByname);
-router.post('/empleados/',createEmpleado);
-router.put('/empleados/:id',UpdateEmpleado);
+routerEmployee.get('/empleados',getEmpleados);
+routerEmployee.get('/empleados/:id',getEmpleadoById);
+routerEmployee.get('/empleados/empleado/:name',getEmpleadoByname);
+routerEmployee.post('/empleados/',createEmpleado);
+routerEmployee.put('/empleados/:id',UpdateEmpleado);
 
-
-export default router
+module.exports={
+    routerEmployee
+}

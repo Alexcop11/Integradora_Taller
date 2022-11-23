@@ -1,17 +1,18 @@
 //Importaciones de nuestro proyecto
-import {Router} from "express";
-import {getClientes,getClienteById,createCliente,UpdateCliente, getClienteByname} from '../controllers/customers.controller.js'
+const {Router} = require ("express");
+const {getClientes,getClienteById,createCliente,UpdateCliente, getClienteByname} = require ('../controllers/customers.controller.js')
+const { auth, checkRoles } = require("../config/jwt.js");
 
 
-const router = Router();
+const routerCustomers = Router();
 
-router.get('/clientes',getClientes);
-router.get('/clientes/:id',getClienteById);
-router.get('/clientes/cliente/:name',getClienteByname);
-router.post('/clientes/',createCliente);
-router.put('/clientes/:id',UpdateCliente);
-
-
+routerCustomers.get('/clientes',getClientes);
+routerCustomers.get('/clientes/:id',getClienteById);
+routerCustomers.get('/clientes/cliente/:name',getClienteByname);
+routerCustomers.post('/clientes/',[auth,checkRoles(['empleado'])],createCliente); // <-- usamos nuestros metodos de autenticacion y de check de Rol
+routerCustomers.put('/clientes/:id',[auth,checkRoles(['empleado'])],UpdateCliente);
 
 
-export default router
+module.exports={
+    routerCustomers,
+}
